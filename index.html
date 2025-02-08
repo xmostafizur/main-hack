@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>লগইন পেইজ</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(120deg, #2980b9, #6dd5fa, #ffffff);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            animation: bgAnimation 6s infinite alternate;
+        }
+
+        @keyframes bgAnimation {
+            0% { background: linear-gradient(120deg, #2980b9, #6dd5fa, #ffffff); }
+            100% { background: linear-gradient(120deg, #6dd5fa, #2980b9, #ffffff); }
+        }
+
+        .login-container {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            width: 320px;
+        }
+
+        h2 {
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .input-group {
+            text-align: left;
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        input {
+            width: 100%;
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background: linear-gradient(90deg, #2980b9, #6dd5fa);
+            border: none;
+            color: white;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.4s;
+        }
+
+        button:hover {
+            background: linear-gradient(90deg, #6dd5fa, #2980b9);
+        }
+
+        #error-message {
+            color: red;
+            margin-top: 10px;
+            font-weight: bold;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+
+        .show-error {
+            opacity: 1;
+        }
+
+        .footer {
+            margin-top: 15px;
+            text-align: center;
+            font-size: 14px;
+            color: #333;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>লগইন করুন</h2>
+        <form id="loginForm">
+            <div class="input-group">
+                <label for="username">ইউজারনেম</label>
+                <input type="text" id="username" placeholder="আপনার ইউজারনেম দিন" required>
+            </div>
+            <div class="input-group">
+                <label for="password">পাসওয়ার্ড</label>
+                <input type="password" id="password" placeholder="আপনার পাসওয়ার্ড দিন" required>
+            </div>
+            <div class="input-group">
+                <label for="key">🔑 Key</label>
+                <input type="text" id="key" placeholder="সঠিক Key দিন" required>
+            </div>
+            <button type="submit">লগইন</button>
+            <p id="error-message"></p>
+        </form>
+    </div>
+
+    <div class="footer">
+        Developer by MOSTAFIZUR <br>
+        Admin by REZA
+    </div>
+
+    <script>
+        document.getElementById("loginForm").addEventListener("submit", function(event) {
+            event.preventDefault();  
+
+            let username = document.getElementById("username").value;
+            let password = document.getElementById("password").value;
+            let key = document.getElementById("key").value;
+            let errorMessage = document.getElementById("error-message");
+
+            // বর্তমান সময়
+            let now = new Date();
+            let marchDeadline = new Date("2025-03-01T12:00:00"); 
+            let aprilDeadline = new Date("2025-04-01T12:00:00");
+
+            if (username === "admin" && password === "12345") {
+                if (key === "MOSTAFIZUR-KEY" && now <= marchDeadline) {
+                    loginSuccess();
+                } else if (key === "REZA-KEY" && now <= aprilDeadline) {
+                    loginSuccess();
+                } else {
+                    errorMessage.innerText = "❌ Key Expired! দয়া করে নতুন Key ব্যবহার করুন";
+                    errorMessage.classList.add("show-error");
+                }
+            } else {
+                errorMessage.innerText = "❌ ইউজারনেম অথবা পাসওয়ার্ড ভুল!";
+                errorMessage.classList.add("show-error");
+            }
+
+            setTimeout(() => {
+                errorMessage.classList.remove("show-error");
+            }, 3000);
+        });
+
+        function loginSuccess() {
+            alert("✅ লগইন সফল হয়েছে!");
+            setTimeout(() => {
+                window.location.href = "https://xmostafizur-ai-hack.netlify.app";  
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
