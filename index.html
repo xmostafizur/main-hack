@@ -124,6 +124,10 @@
         Admin by REZA
     </div>
 
+    <!-- অডিও ফাইল লোড -->
+    <audio id="wrongAudio" src="wrong.mp3"></audio>
+    <audio id="adminAudio" src="admin.mp3"></audio>
+
     <script>
         document.getElementById("loginForm").addEventListener("submit", function(event) {
             event.preventDefault();  
@@ -132,6 +136,9 @@
             let password = document.getElementById("password").value;
             let key = document.getElementById("key").value;
             let errorMessage = document.getElementById("error-message");
+
+            let wrongAudio = document.getElementById("wrongAudio");
+            let adminAudio = document.getElementById("adminAudio");
 
             // বর্তমান সময়
             let now = new Date();
@@ -144,10 +151,12 @@
                 } else if (key === "30DAY-REZA-TRX71" && now <= aprilDeadline) {
                     loginSuccess();
                 } else {
+                    wrongAudio.play(); // ভুল হলে অডিও বাজবে
                     errorMessage.innerText = "❌ Key Expired! দয়া করে নতুন Key ব্যবহার করুন";
                     errorMessage.classList.add("show-error");
                 }
             } else {
+                wrongAudio.play(); // ভুল হলে অডিও বাজবে
                 errorMessage.innerText = "❌ ইউজারনেম অথবা পাসওয়ার্ড ভুল!";
                 errorMessage.classList.add("show-error");
             }
@@ -158,7 +167,8 @@
         });
 
         function loginSuccess() {
-            alert("✅ লগইন সফল হয়েছে!");
+            let adminAudio = document.getElementById("adminAudio");
+            adminAudio.play(); // সফল হলে admin.mp3 বাজবে
             setTimeout(() => {
                 window.location.href = "https://xmostafizur-ai.netlify.app/";  
             }, 3000);
